@@ -12,7 +12,7 @@ npx skills add ttapi-io/ttapi-skills --skill ttapi-midjourney-image
 
 The current installer requires Node.js 22.20+; bundled clients require Node.js 20+. Keep runtime, self-contained catalog, references, helpers and examples within each installed directory. Do not import from a sibling Skill/category or repository root. Each product works without MCP. Prefer product Skills instead of installing overlapping combined Skills as well.
 
-Inventory: 17 products (8 image, 6 video, 3 audio), 3 combined Skills, 20 total; 79 product operation entries plus 22 overlapping compatibility entries = 101 bundled entries. These are catalog entries, not unique endpoints or model counts. Update both README tables/counts when inventory changes.
+Inventory: 16 products (8 image, 6 video, 2 audio), 3 combined Skills, 19 total; 67 product operation entries plus 22 overlapping compatibility entries = 89 bundled entries. These are catalog entries, not unique endpoints or model counts. Update both README tables/counts when inventory changes.
 
 ## Official source contracts
 
@@ -34,7 +34,6 @@ Start with [TTAPI llms.txt](https://docs.ttapi.io/llms.txt), follow the relevant
 | HappyHorse | `/openapi/en/happyhorse.json` and mode-specific `happyhorse-*.json` files |
 | Suno | `/openapi/en/suno.json` |
 | FlowMusic | `/openapi/en/flowmuisc.json` (official filename spelling) |
-| Producer | `/openapi/en/producer.json` |
 
 The historical Midjourney video bundle is named/titled Sora. Confirm actual paths with [submit](https://docs.ttapi.io/api/en/videoapi/submit), [extend](https://docs.ttapi.io/api/en/videoapi/extend) and [fetch](https://docs.ttapi.io/api/en/videoapi/fetch); do not substitute unrelated Sora operations.
 
@@ -72,7 +71,7 @@ The validator supports types, required fields, enum/const, numeric/string/array/
 
 Tests must use fixtures or injected mock transports and fake keys. The machine may contain a real `TTAPI_API_KEY`: never let tests fall back to its credentials/network. `models`, `schema` and `--dry-run` are local and do not prove key validity or account access. CI does not require secrets.
 
-Current verification: 20 Skills passed format checks; sync/check covered 101 bundled entries; 158 offline tests passed. The cached `skills@1.7.4` installer discovered/installed all 20 in isolation, and standalone copies of all 17 products passed models/schema/dry-run without keys or sibling Skills. This expansion used offline/mock checks. One standard GPT Image 2 generation was performed earlier; the other workflows have not received paid live generation tests. Do not describe installation/fixture checks as end-to-end generation tests.
+Current verification: 19 Skills passed format checks; sync/check covered 89 bundled entries; 155 offline tests passed. The cached `skills@1.7.4` installer discovered/installed all 19 in isolation, and standalone copies of all 16 products passed models/schema/dry-run without keys or sibling Skills. This expansion used offline/mock checks. One standard GPT Image 2 generation was performed earlier; the other workflows have not received paid live generation tests. Do not describe installation/fixture checks as end-to-end generation tests.
 
 Live checks need an explicitly authorized operation and quantity/budget. Some auxiliary operations are billable: current Midjourney pricing lists describe/seed, while dedicated edit/video fetch endpoints are documented as free. Read current product pricing rather than treating every POST or query-like operation alike.
 

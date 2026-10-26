@@ -13,12 +13,12 @@ const skills=await listSkills();
 const categories={
  image:['ttapi-midjourney-image','ttapi-midjourney-edit','ttapi-nano-banana','ttapi-openai-image','ttapi-novel-ai','ttapi-flux-image','ttapi-grok-image','ttapi-seedream'],
  video:['ttapi-midjourney-video','ttapi-grok-video','ttapi-happyhorse','ttapi-gemini-video','ttapi-flux3-video','ttapi-wan-video'],
- audio:['ttapi-suno','ttapi-producer','ttapi-flowmusic']
+ audio:['ttapi-suno','ttapi-flowmusic']
 };
 test('every requested product has a discoverable category-specific bundle, while existing entry points remain',()=>{
  for(const [category,names]of Object.entries(categories))for(const name of names)assert(skills.some(skill=>skill.name===name&&skill.category===category),`${category}/${name} is missing`);
  for(const name of ['ttapi-image','ttapi-video','ttapi-audio'])assert(skills.some(skill=>skill.name===name&&skill.category==='combined'));
- assert(!skills.some(skill=>/swapface/i.test(skill.name)));
+ assert(!skills.some(skill=>/swapface|producer/i.test(skill.name)));
 });
 
 for(const skill of skills)if(skill.category!=='combined')test(`${skill.name} works as an isolated installed copy without sibling Skills or an API Key`,async()=>{

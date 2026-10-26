@@ -6,9 +6,9 @@ Official [TTAPI](https://ttapi.io/?utm_source=github&utm_medium=skills&utm_campa
 
 ## Choose a product Skill
 
-**17 product Skills** are organized by image/video/audio, with **3 original combined Skills** retained for compatibility: **20 installable Skills** total. Prefer the product you need; installing an overlapping product and combined Skill is usually unnecessary.
+**16 product Skills** are organized by image/video/audio, with **3 original combined Skills** retained for compatibility: **19 installable Skills** total. Prefer the product you need; installing an overlapping product and combined Skill is usually unnecessary.
 
-Product catalogs contain **79 operation entries**. Combined Skills retain 22 overlapping entries, giving 101 bundled entries; this is not 101 distinct APIs or models. Catalogs are versioned documentation snapshots, not live account availability checks or coverage of every endpoint.
+Product catalogs contain **67 operation entries**. Combined Skills retain 22 overlapping entries, giving 89 bundled entries; this is not 89 distinct APIs or models. Catalogs are versioned documentation snapshots, not live account availability checks or coverage of every endpoint.
 
 ### Images — 8 products
 
@@ -34,13 +34,12 @@ Product catalogs contain **79 operation entries**. Combined Skills retain 22 ove
 | [ttapi-wan-video](skills/video/ttapi-wan-video/SKILL.md) | Wan 3.0 text-to-video, first frame, first/last frames and task retrieval |
 | [ttapi-happyhorse](skills/video/ttapi-happyhorse/SKILL.md) | Text-to-video, first-frame/reference-image generation and video editing |
 
-### Audio — 3 products
+### Audio — 2 products
 
 | Skill | Implemented workflows |
 | --- | --- |
 | [ttapi-suno](skills/audio/ttapi-suno/SKILL.md) | Songs/instrumentals, lyrics, continuation, covers, selected/all stems |
 | [ttapi-flowmusic](skills/audio/ttapi-flowmusic/SKILL.md) | Lyria music, lyrics, covers, continuation, stems, URL import and format export |
-| [ttapi-producer](skills/audio/ttapi-producer/SKILL.md) | Producer generation/lyrics, continuation, covers/variations, section/vocal/accompaniment replacement, stems, import/export and track video |
 
 ### Original combined Skills
 
@@ -131,7 +130,7 @@ Download promptly; retention varies. Downloads do not receive your key or overwr
 
 ## Verification and development
 
-Run `npm run sync`, `npm run check` and `npm test`; see [DEVELOPMENT.md](docs/DEVELOPMENT.md). Format checks passed for 20 Skills, 158 offline tests passed, and the cached `skills@1.7.4` installer discovered/installed all 20 into an isolated directory. Standalone copies of all 17 products passed local models/schema/dry-run checks without keys or sibling Skills.
+Run `npm run sync`, `npm run check` and `npm test`; see [DEVELOPMENT.md](docs/DEVELOPMENT.md). Format checks passed for 19 Skills, 155 offline tests passed, and the cached `skills@1.7.4` installer discovered/installed all 19 into an isolated directory. Standalone copies of all 16 products passed local models/schema/dry-run checks without keys or sibling Skills.
 
 **This expansion used offline/mock verification. One standard GPT Image 2 generation was performed earlier; the other product workflows have not received paid live generation tests.** Installation and local checks do not establish every model/client's live availability or output quality. Fixtures are official examples or explicitly labeled schema-derived cases.
 

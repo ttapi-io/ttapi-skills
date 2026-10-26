@@ -10,7 +10,7 @@ Use TTAPI's existing music APIs to deliver a playable audio file or the requeste
 ## Choose the workflow
 
 - **Suno**: songs with custom lyrics, instrumental BGM, continuation, covers and stem extraction. Read [Suno](references/suno.md) for mode-specific inputs and track IDs.
-- **FlowMusic**: prompt-to-music or lyrics-to-music with Lyria models, lyrics writing, continuation, covers, stems, URL audio import and format export. Read [FlowMusic](references/flowmusic.md). New integrations should use FlowMusic rather than the older Producer API.
+- **FlowMusic**: prompt-to-music or lyrics-to-music with Lyria models, lyrics writing, continuation, covers, stems, URL audio import and format export. Read [FlowMusic](references/flowmusic.md).
 - Preserve a requested model or service. For an unspecified general music request, start with one Suno generation using `chirp-v6`; use FlowMusic when the user asks for Lyria or exactly one clip.
 
 ## Run

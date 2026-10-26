@@ -6,9 +6,9 @@ TTAPI 官方 Agent 技能集：让 AI 助手生成图片、视频和音乐，保
 
 ## 按产品选择 Skill
 
-当前提供 **17 个独立产品 Skill**，按图片／视频／音频分类；原 **3 个综合 Skill** 保留兼容，共 **20 个可安装 Skill**。优先安装需要的产品，同一能力通常无需同时安装产品 Skill 和综合 Skill。
+当前提供 **16 个独立产品 Skill**，按图片／视频／音频分类；原 **3 个综合 Skill** 保留兼容，共 **19 个可安装 Skill**。优先安装需要的产品，同一能力通常无需同时安装产品 Skill 和综合 Skill。
 
-产品目录共有 **79 个操作入口**，综合 Skill 另保留 22 个重叠入口，仓库合计 101 个打包入口，**不代表 101 个不同 API 或模型**。清单是随版本维护的文档快照，不代表账号实时可用列表，也不承诺覆盖平台全部接口。
+产品目录共有 **67 个操作入口**，综合 Skill 另保留 22 个重叠入口，仓库合计 89 个打包入口，**不代表 89 个不同 API 或模型**。清单是随版本维护的文档快照，不代表账号实时可用列表，也不承诺覆盖平台全部接口。
 
 ### 图片：8 个产品
 
@@ -34,13 +34,12 @@ TTAPI 官方 Agent 技能集：让 AI 助手生成图片、视频和音乐，保
 | [ttapi-wan-video](skills/video/ttapi-wan-video/SKILL.md) | Wan 3.0 文生视频、首帧、首尾帧与查询 |
 | [ttapi-happyhorse](skills/video/ttapi-happyhorse/SKILL.md) | 文生视频、首帧／参考图生成、视频编辑 |
 
-### 音频：3 个产品
+### 音频：2 个产品
 
 | Skill | 已实现流程 |
 | --- | --- |
 | [ttapi-suno](skills/audio/ttapi-suno/SKILL.md) | 歌曲／纯音乐、歌词、续写、翻唱、指定分轨／全分轨 |
 | [ttapi-flowmusic](skills/audio/ttapi-flowmusic/SKILL.md) | Lyria 音乐、歌词、翻唱、续写、分轨、URL 导入、格式导出 |
-| [ttapi-producer](skills/audio/ttapi-producer/SKILL.md) | Producer 生成／歌词、续写、翻唱／变体、片段／人声／伴奏替换、分轨、导入导出与歌曲视频 |
 
 ### 原综合 Skill 继续可用
 
@@ -131,7 +130,7 @@ node skills/video/ttapi-wan-video/scripts/ttapi.mjs get wan-text-to-video --task
 
 ## 验证与维护
 
-运行 `npm run sync`、`npm run check`、`npm test`，详见 [DEVELOPMENT.md](docs/DEVELOPMENT.md)。20 个 Skill 的格式检查、158 项离线测试均通过；缓存的 `skills@1.7.4` 安装器已在隔离目录发现并安装全部 20 个。17 个独立产品的单独副本，在无 Key、无兄弟 Skill 时均通过本地 models/schema/dry-run 检查。
+运行 `npm run sync`、`npm run check`、`npm test`，详见 [DEVELOPMENT.md](docs/DEVELOPMENT.md)。19 个 Skill 的格式检查、155 项离线测试均通过；缓存的 `skills@1.7.4` 安装器已在隔离目录发现并安装全部 19 个。16 个独立产品的单独副本，在无 Key、无兄弟 Skill 时均通过本地 models/schema/dry-run 检查。
 
 **本轮产品扩展使用离线／mock 验证。此前仅进行过一次标准 GPT Image 2 真实生成；其它产品流程没有进行付费生成实测。** 安装成功与本地检查不能证明所有模型／客户端的实时可用性或生成质量。样例来自官方文档或明确标注的 schema 构造数据。
 

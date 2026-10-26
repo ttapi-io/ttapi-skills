@@ -1,6 +1,6 @@
 # FlowMusic on TTAPI
 
-Verified against the [official OpenAPI](https://docs.ttapi.io/openapi/en/flowmuisc.json) and [music endpoint](https://docs.ttapi.io/api/en/flowmuisc/flowmuisc_generate) on 2026-10-26. The documentation path spells `flowmuisc`; the API path correctly spells `flowmusic`. FlowMusic replaces the older Producer module for new integrations.
+Verified against the [official OpenAPI](https://docs.ttapi.io/openapi/en/flowmuisc.json) and [music endpoint](https://docs.ttapi.io/api/en/flowmuisc/flowmuisc_generate) on 2026-10-26. The documentation path spells `flowmuisc`; the API path correctly spells `flowmusic`.
 
 ## Operation map
 

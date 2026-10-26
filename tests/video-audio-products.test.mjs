@@ -3,16 +3,15 @@ import assert from 'node:assert/strict';
 import { catalog as happy } from '../skills/video/ttapi-happyhorse/scripts/catalog.mjs';
 import { catalog as gemini } from '../skills/video/ttapi-gemini-video/scripts/catalog.mjs';
 import { catalog as flux } from '../skills/video/ttapi-flux3-video/scripts/catalog.mjs';
-import { catalog as producer } from '../skills/audio/ttapi-producer/scripts/catalog.mjs';
 import { validateInput, planRequest, normalize, waitForTask, request } from '../scripts/ttapi-runtime.mjs';
 
 // Offline contracts only. Explicit mock credentials prevent using the real environment key.
-const catalogs = [happy, gemini, flux, producer];
+const catalogs = [happy, gemini, flux];
 const rejected = (operation, input) => assert.throws(() => validateInput(operation, input), { code: 'INVALID_INPUT' });
 const clone = value => structuredClone(value);
 
-test('all 22 video/audio product examples validate without credentials or network', () => {
-  assert.equal(catalogs.reduce((count, catalog) => count + Object.keys(catalog.operations).length, 0), 22);
+test('all 10 HappyHorse, Gemini and FLUX 3 video examples validate without credentials or network', () => {
+  assert.equal(catalogs.reduce((count, catalog) => count + Object.keys(catalog.operations).length, 0), 10);
   for (const catalog of catalogs) for (const operation of Object.values(catalog.operations)) {
     assert.doesNotThrow(() => validateInput(operation, operation.example));
     assert.equal(planRequest(operation, operation.example).method, 'POST');
@@ -84,8 +83,7 @@ test('normalization downloads only each products generated output fields', () =>
   const cases = [
     [happy.operations['happyhorse-text-to-video'], { output: { task_id: 'happy-job', task_status: 'SUCCEEDED', video_url: 'https://example.com/output.mp4' }, request_id: 'trace-only' }, 'happy-job'],
     [gemini.operations['gemini-video-generate'], { status: 'SUCCESS', jobId: 'gemini-job', data: { video_url: 'https://example.com/output.mp4', reference_images: ['https://example.com/input.png'] } }, 'gemini-job'],
-    [flux.operations['flux3-text-to-video'], { status: 'SUCCESS', jobId: 'flux-job', data: { videoUrl: 'https://example.com/output.mp4', start_video: 'https://example.com/input.mp4' } }, 'flux-job'],
-    [producer.operations['producer-generate'], { status: 'SUCCESS', jobId: 'producer-job', data: { musics: [{ musicId: 'track-id', audioUrl: 'https://example.com/output.mp3', imageUrl: 'https://example.com/cover.png' }] } }, 'producer-job']
+    [flux.operations['flux3-text-to-video'], { status: 'SUCCESS', jobId: 'flux-job', data: { videoUrl: 'https://example.com/output.mp4', start_video: 'https://example.com/input.mp4' } }, 'flux-job']
   ];
   for (const [operation, payload, taskId] of cases) {
     const result = normalize(payload, operation, 'fixture', 'poll');
@@ -94,27 +92,6 @@ test('normalization downloads only each products generated output fields', () =>
     assert.equal(result.assets.length, 1);
     assert.ok(result.assets[0].url.includes('/output.'));
   }
-});
-
-test('Producer distinguishes request jobId from source musicId and keeps numeric fields numeric', () => {
-  const operation = producer.operations['producer-generate'];
-  rejected(operation, { ...operation.example, sound_prompt: '', lyrics_text: '' });
-  rejected(operation, { ...operation.example, lyrics_strength: '0.5' });
-  rejected(operation, { ...operation.example, sound_strength: 0.1 });
-  rejected(operation, { ...operation.example, model: 'FUZZ-2.0' });
-  assert.equal(planRequest(operation, undefined, 'producer-job').url, 'https://api.ttapi.io/producer/v1/fetch?jobId=producer-job');
-  const replace = producer.operations['producer-replace'];
-  rejected(replace, { ...replace.example, starts: 20, ends: 10 });
-});
-
-test('Producer synchronous lyrics and video results do not require another paid task', () => {
-  const lyrics = normalize({ status: 'SUCCESS', data: { jobId: 'lyrics-job', lyrics: 'Original fixture line.' } }, producer.operations['producer-lyrics'], 'producer-lyrics');
-  assert.equal(lyrics.status, 'succeeded');
-  assert.deepEqual(lyrics.assets, []);
-  const video = normalize({ status: 'SUCCESS', data: { status: 'complete', videoUrl: 'https://example.com/video.mp4' } }, producer.operations['producer-generate-video'], 'producer-generate-video');
-  assert.equal(video.status, 'succeeded');
-  assert.equal(video.assets[0].url, 'https://example.com/video.mp4');
-  assert.equal(producer.operations['producer-lyrics'].poll, undefined);
 });
 
 test('HappyHorse mock wait polls an existing task and never posts a generation', async () => {

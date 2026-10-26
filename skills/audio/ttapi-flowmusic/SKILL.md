@@ -1,6 +1,6 @@
 ---
 name: ttapi-flowmusic
-description: Generate FlowMusic/Lyria music and lyrics through TTAPI, extend or cover tracks, separate stems and import or export supported audio. Use for FlowMusic、Lyria音乐、背景音乐 and FlowMusic audio jobs; preserve an explicit request for the separate Producer product.
+description: Generate FlowMusic/Lyria music and lyrics through TTAPI, extend or cover tracks, separate stems and import or export supported audio. Use for FlowMusic、Lyria音乐、背景音乐 and FlowMusic audio jobs.
 ---
 
 # TTAPI FlowMusic
