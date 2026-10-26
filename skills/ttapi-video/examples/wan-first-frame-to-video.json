@@ -1,0 +1,18 @@
+{
+  "model": "wan3.0-video",
+  "input": {
+    "prompt": "The camera slowly moves closer as the subject turns toward the light.",
+    "media": [
+      {
+        "type": "first_frame",
+        "url": "https://example.com/first-frame.jpg"
+      }
+    ]
+  },
+  "parameters": {
+    "resolution": "720P",
+    "ratio": "16:9",
+    "duration": 5,
+    "audio": true
+  }
+}

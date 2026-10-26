@@ -1,0 +1,243 @@
+[
+  {
+    "name": "suno-submit-accepted",
+    "operation": "suno-generate",
+    "phase": "submit",
+    "source": "https://docs.ttapi.io/api/en/suno/suno_music",
+    "payload": {
+      "status": "SUCCESS",
+      "message": "success",
+      "data": {
+        "jobId": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+      }
+    },
+    "expected": {
+      "taskId": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "status": "submitted",
+      "assetUrls": []
+    }
+  },
+  {
+    "name": "suno-running-schema-derived",
+    "operation": "suno-generate",
+    "phase": "pending",
+    "source": "https://docs.ttapi.io/api/en/suno/suno_fetch_v2 (schema-derived ON_QUEUE case; not a recorded production response)",
+    "payload": {
+      "status": "ON_QUEUE",
+      "message": "",
+      "jobId": "suno-job-fixture",
+      "data": {
+        "jobId": "suno-job-fixture",
+        "action": "music",
+        "progress": "50%",
+        "musics": []
+      }
+    },
+    "expected": {
+      "taskId": "suno-job-fixture",
+      "status": "running",
+      "assetUrls": []
+    }
+  },
+  {
+    "name": "suno-fetch-official-example",
+    "operation": "suno-generate",
+    "phase": "success",
+    "source": "https://docs.ttapi.io/api/en/suno/suno_fetch_v2",
+    "payload": {
+      "status": "SUCCESS",
+      "message": "success",
+      "jobId": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "data": {
+        "jobId": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "action": "music",
+        "progress": "100%",
+        "mv": "chirp-v6",
+        "quota": "6",
+        "hookUrl": "https://webhook-test.com/ed9731f4026f04e7c0cfa99e41d2b2fc",
+        "musics": [
+          {
+            "musicId": "xxxxxxxxxxxxxxxxx",
+            "prompt": "xxxxxxxxxxxxxxxxxx",
+            "title": "xxxxx",
+            "tags": "xxxxx",
+            "imageUrl": "https://cdn2.suno.ai/xxxxxxxxxxxxxxxxx.jpeg",
+            "imageLargeUrl": "https://cdn2.suno.ai/xxxxxxxxxxxxxx.jpeg",
+            "audioUrl": "https://cdn1.suno.ai/xxxxxxxxxxxxxxx.mp3",
+            "videoUrl": "https://cdn1.suno.ai/xxxxxxxxxxxxxxx.mp4",
+            "duration": "211.44",
+            "modelName": "chirp-hawk",
+            "negativeTags": "xxxxxxxxxxxxxxxxxxx",
+            "styleWeight": null,
+            "weirdnessConstraint": null,
+            "audioWeight": null,
+            "createdAt": "2026-03-03T02:23:51.401Z"
+          }
+        ]
+      }
+    },
+    "expected": {
+      "taskId": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "status": "succeeded",
+      "assetUrls": [
+        "https://cdn1.suno.ai/xxxxxxxxxxxxxxx.mp3"
+      ]
+    }
+  },
+  {
+    "name": "suno-failure-schema-derived",
+    "operation": "suno-generate",
+    "phase": "failure",
+    "source": "https://docs.ttapi.io/api/en/suno/suno_fetch_v2 (FAILED response schema; illustrative error text)",
+    "payload": {
+      "status": "FAILED",
+      "message": "Generation failed",
+      "data": {}
+    },
+    "expected": {
+      "status": "failed",
+      "assetUrls": []
+    }
+  },
+  {
+    "name": "flowmusic-submit-accepted",
+    "operation": "flowmusic-generate",
+    "phase": "submit",
+    "source": "https://docs.ttapi.io/api/en/flowmuisc/flowmuisc_generate",
+    "payload": {
+      "status": "SUCCESS",
+      "message": "success",
+      "data": {
+        "jobId": "jobId"
+      }
+    },
+    "expected": {
+      "taskId": "jobId",
+      "status": "submitted",
+      "assetUrls": []
+    }
+  },
+  {
+    "name": "flowmusic-queued-schema-derived",
+    "operation": "flowmusic-generate",
+    "phase": "pending",
+    "source": "https://docs.ttapi.io/api/en/flowmuisc/flowmuisc_fetch (schema-derived PENDING_QUEUE case; not a recorded production response)",
+    "payload": {
+      "status": "PENDING_QUEUE",
+      "message": "",
+      "jobId": "flowmusic-job-fixture",
+      "data": {
+        "jobId": "flowmusic-job-fixture",
+        "progress": "0%"
+      }
+    },
+    "expected": {
+      "taskId": "flowmusic-job-fixture",
+      "status": "queued",
+      "assetUrls": []
+    }
+  },
+  {
+    "name": "flowmusic-fetch-official-shape-shortened-lyrics",
+    "operation": "flowmusic-lyrics",
+    "phase": "success",
+    "source": "https://docs.ttapi.io/api/en/flowmuisc/flowmuisc_fetch (official example shape and IDs; lyrics text replaced with a short fixture value)",
+    "payload": {
+      "status": "SUCCESS",
+      "message": "success",
+      "jobId": "ffd6870b-9a83-47e6-9d57-601efced86b5",
+      "data": {
+        "jobId": "ffd6870b-9a83-47e6-9d57-601efced86b5",
+        "action": "lyrics",
+        "progress": "100%",
+        "mv": "FUZZ-2.0",
+        "quota": "1",
+        "hookUrl": null,
+        "clips": [
+          {
+            "clip_id": "07d737cf-9509-4132-99f5-a17339bd7462",
+            "title": "Work It Out",
+            "lyrics_id": "837e6f94-870b-53a9-8b18-dcf0340b429f",
+            "lyrics_timing_markers": "[Verse]\nExample line for a local fixture.",
+            "image_url": null,
+            "audio_url": null,
+            "wav_url": null,
+            "video_url": null,
+            "create_time": null
+          }
+        ]
+      }
+    },
+    "expected": {
+      "taskId": "ffd6870b-9a83-47e6-9d57-601efced86b5",
+      "status": "succeeded",
+      "assetUrls": []
+    }
+  },
+  {
+    "name": "flowmusic-audio-schema-derived",
+    "operation": "flowmusic-generate",
+    "phase": "success",
+    "source": "https://docs.ttapi.io/api/en/flowmuisc/flowmuisc_fetch (official clips field names; synthetic URLs for local transport tests)",
+    "payload": {
+      "status": "SUCCESS",
+      "message": "success",
+      "jobId": "flowmusic-job-fixture",
+      "data": {
+        "jobId": "flowmusic-job-fixture",
+        "action": "generations",
+        "progress": "100%",
+        "clips": [
+          {
+            "clip_id": "clip-fixture",
+            "audio_url": "https://cdn.ttapi.io/fixtures/audio.mp3",
+            "wav_url": null,
+            "video_url": null
+          }
+        ]
+      }
+    },
+    "expected": {
+      "taskId": "flowmusic-job-fixture",
+      "status": "succeeded",
+      "assetUrls": [
+        "https://cdn.ttapi.io/fixtures/audio.mp3"
+      ]
+    }
+  },
+  {
+    "name": "flowmusic-invalid-input-example",
+    "operation": "flowmusic-generate",
+    "phase": "failure",
+    "source": "https://docs.ttapi.io/api/en/flowmuisc/flowmuisc_generate",
+    "payload": {
+      "status": "FAILED",
+      "message": "\"prompt\" cannot be empty.",
+      "data": {}
+    },
+    "expected": {
+      "status": "failed",
+      "assetUrls": []
+    }
+  },
+  {
+    "name": "flowmusic-synchronous-lyrics-official-shape",
+    "operation": "flowmusic-lyrics",
+    "phase": "success",
+    "source": "https://docs.ttapi.io/api/en/flowmuisc/flowmuisc_lyricscreate (official example shape and IDs; lyrics text replaced with a short fixture value)",
+    "payload": {
+      "status": "SUCCESS",
+      "message": "success",
+      "data": {
+        "jobId": "ffd6870b-9a83-47e6-9d57-601efced86b5",
+        "title": "Work It Out",
+        "lyrics": "[Verse]\nExample line for a local fixture."
+      }
+    },
+    "expected": {
+      "taskId": "ffd6870b-9a83-47e6-9d57-601efced86b5",
+      "status": "succeeded",
+      "assetUrls": []
+    }
+  }
+]

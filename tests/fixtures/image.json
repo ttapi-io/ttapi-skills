@@ -1,0 +1,166 @@
+[
+  {
+    "name": "unofficial-gpt-submitted",
+    "operation": "image2-async",
+    "phase": "submit",
+    "source": "https://docs.ttapi.io/openapi/en/openai.json#/components/responses/SuccessResponse (assembled from property examples)",
+    "payload": {
+      "status": "SUCCESS",
+      "message": "success",
+      "data": {
+        "jobId": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+      }
+    },
+    "expected": {
+      "taskId": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "status": "submitted",
+      "assetUrls": []
+    }
+  },
+  {
+    "name": "unofficial-gpt-pending",
+    "operation": "image2-async",
+    "phase": "pending",
+    "source": "https://docs.ttapi.io/openapi/en/openai.json#/paths/~1openai~1gpt~1fetch/get/responses/200/content/application~1json/examples/ON_QUEUE",
+    "payload": {
+      "status": "ON_QUEUE",
+      "message": null,
+      "jobId": "0ccf0606-3f32-4090-85bd-1786e4593be5",
+      "data": {
+        "prompt": "A professional full-body flat lay photo of a beautiful female model wearing this outfit. High resolution, photorealistic, perfect detail of all clothing elements, professional pose, attractive figure, trendy style, smiling, fair-skinned Caucasian woman.",
+        "referImages": [
+          "https://cdn.ttapi.io/demo/2025-03-30/5d17dd5207daeeac86bcecd2d6405a0.jpg"
+        ],
+        "imageUrl": null,
+        "quota": "2",
+        "finishTime": null,
+        "hookUrl": "https://webhook-test.com/b129b43b6619f977b3227387fc290f7d"
+      }
+    },
+    "expected": {
+      "taskId": "0ccf0606-3f32-4090-85bd-1786e4593be5",
+      "status": "running",
+      "assetUrls": []
+    }
+  },
+  {
+    "name": "unofficial-gpt-success",
+    "operation": "image2-async",
+    "phase": "success",
+    "source": "https://docs.ttapi.io/openapi/en/openai.json#/paths/~1openai~1gpt~1fetch/get/responses/200/content/application~1json/examples/SUCCESS",
+    "payload": {
+      "status": "SUCCESS",
+      "message": "success",
+      "jobId": "5ecc5080-b1d7-4b9f-8184-435e46ebb5cb",
+      "data": {
+        "prompt": "A professional full-body flat lay photo of a beautiful female model wearing this outfit. High resolution, photorealistic, perfect detail of all clothing elements, professional pose, attractive figure, trendy style, smiling, fair-skinned Caucasian woman.",
+        "referImages": [
+          "https://cdn.ttapi.io/demo/2025-03-30/5d17dd5207daeeac86bcecd2d6405a0.jpg"
+        ],
+        "imageUrl": "https://cdnc.ttapi.io/2025-03-31/cd3f3ce5-06be-4b3a-9aed-014045ca1804.png",
+        "quota": "2",
+        "finishTime": "2025-03-31 04:25:33",
+        "hookUrl": "https://webhook-test.com/b129b43b6619f977b3227387fc290f7d"
+      }
+    },
+    "expected": {
+      "taskId": "5ecc5080-b1d7-4b9f-8184-435e46ebb5cb",
+      "status": "succeeded",
+      "assetUrls": [
+        "https://cdnc.ttapi.io/2025-03-31/cd3f3ce5-06be-4b3a-9aed-014045ca1804.png"
+      ]
+    }
+  },
+  {
+    "name": "unofficial-gpt-failure",
+    "operation": "image2-async",
+    "phase": "failure",
+    "source": "https://docs.ttapi.io/openapi/en/openai.json#/paths/~1openai~1gpt~1fetch/get/responses/200/content/application~1json/examples/FAILED",
+    "payload": {
+      "status": "FAILED",
+      "message": "job failed",
+      "jobId": "b45fcf32-71a5-4df2-82c7-2e6300e32e29",
+      "data": {
+        "prompt": "A professional full-body photo of a beautiful Chinese female model in a studio lighting setup trying on clothes. High resolution, photorealistic, professional pose, well-proportioned figure, smiling, fair skin.",
+        "referImages": [
+          "https://cdn.ttapi.io/demo/2025-03-30/5d17dd5207daeeac86bcecd2d6405a0.jpg"
+        ],
+        "imageUrl": null,
+        "quota": "0",
+        "finishTime": "2025-03-31 04:10:21",
+        "hookUrl": "https://webhook-test.com/b129b43b6619f977b3227387fc290f7d"
+      }
+    },
+    "expected": {
+      "taskId": "b45fcf32-71a5-4df2-82c7-2e6300e32e29",
+      "status": "failed",
+      "assetUrls": []
+    }
+  },
+  {
+    "name": "nano-synchronous-success",
+    "operation": "nano-generate",
+    "phase": "success",
+    "source": "https://docs.ttapi.io/openapi/en/gemini.json#/components/responses/SuccessResponse1/content/application~1json/schema/example",
+    "payload": {
+      "status": "SUCCESS",
+      "message": "success",
+      "data": {
+        "prompt": "a cute cat",
+        "refer_images": null,
+        "image_url": "https://cdn.ttapi.io/other/2025-09-10/8b46aa28-4433-455f-bf5c-f5ccea48baf2.png",
+        "quota": 2
+      }
+    },
+    "expected": {
+      "taskId": null,
+      "status": "succeeded",
+      "assetUrls": [
+        "https://cdn.ttapi.io/other/2025-09-10/8b46aa28-4433-455f-bf5c-f5ccea48baf2.png"
+      ]
+    }
+  },
+  {
+    "name": "standard-gpt-synchronous-base64",
+    "operation": "image2-generate",
+    "phase": "success",
+    "source": "https://docs.ttapi.io/openapi/en/openai.json#/paths/~1v1~1images~1generations/post/responses/200/content/application~1json/schema/examples/Base64%20Format (base64 is intentionally truncated in official example)",
+    "payload": {
+      "created": 1745818890,
+      "data": [
+        {
+          "b64_json": "iVBORw0KGgoAAAANSUhE..."
+        }
+      ],
+      "usage": {
+        "input_tokens": 9,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 9
+        },
+        "output_tokens": 4160,
+        "total_tokens": 4169
+      }
+    },
+    "expected": {
+      "taskId": null,
+      "status": "succeeded",
+      "assetUrls": []
+    }
+  },
+  {
+    "name": "nano-authentication-failure",
+    "operation": "nano-generate",
+    "phase": "failure",
+    "source": "https://docs.ttapi.io/openapi/en/gemini.json#/components/responses/401Response (assembled from property examples)",
+    "payload": {
+      "status": "FAILED",
+      "message": "Wrong TT-API-KEY or email is not activated."
+    },
+    "expected": {
+      "taskId": null,
+      "status": "failed",
+      "assetUrls": []
+    }
+  }
+]

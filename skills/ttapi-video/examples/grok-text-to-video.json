@@ -1,0 +1,7 @@
+{
+  "model": "grok-imagine-video-1.5-fast",
+  "prompt": "A red fox crosses a snowy forest clearing, soft morning light, slow tracking shot.",
+  "aspect_ratio": "16:9",
+  "video_length": "6",
+  "resolution_name": "720p"
+}

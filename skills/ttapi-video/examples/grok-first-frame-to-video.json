@@ -1,0 +1,8 @@
+{
+  "model": "grok-imagine-video-1.5-fast",
+  "prompt": "The subject gently turns toward the camera while the background remains stable.",
+  "first_frame": "https://example.com/first-frame.jpg",
+  "aspect_ratio": "16:9",
+  "video_length": "6",
+  "resolution_name": "720p"
+}

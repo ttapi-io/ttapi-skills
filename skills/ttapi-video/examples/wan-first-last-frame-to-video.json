@@ -1,0 +1,22 @@
+{
+  "model": "wan3.0-video",
+  "input": {
+    "prompt": "A smooth continuous camera movement connects the two scenes.",
+    "media": [
+      {
+        "type": "first_frame",
+        "url": "https://example.com/first-frame.jpg"
+      },
+      {
+        "type": "last_frame",
+        "url": "https://example.com/last-frame.jpg"
+      }
+    ]
+  },
+  "parameters": {
+    "resolution": "720P",
+    "ratio": "16:9",
+    "duration": 5,
+    "audio": true
+  }
+}

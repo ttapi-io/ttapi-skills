@@ -1,0 +1,119 @@
+[
+  {
+    "name": "wan-submit-acknowledgement",
+    "operation": "wan-text-to-video",
+    "phase": "submit",
+    "source": "https://docs.ttapi.io/openapi/en/wan-text-to-video.json",
+    "provenance": "Constructed from official response property examples, not a live API capture.",
+    "payload": {"output":{"task_status":"PENDING","task_id":"0385dc79-5ff8-4d82-bcb6-xxxxxx"},"request_id":"4909100c-7b5a-9f92-bfe5-xxxxxx"},
+    "expected": {"taskId":"0385dc79-5ff8-4d82-bcb6-xxxxxx","status":"queued","assetUrls":[]}
+  },
+  {
+    "name": "wan-pending",
+    "operation": "wan-text-to-video",
+    "phase": "pending",
+    "source": "https://docs.ttapi.io/openapi/en/wan-task-result.json",
+    "provenance": "Constructed from official response schema and documented task status enum, not a live API capture.",
+    "payload": {"request_id":"78c9b768-0285-996c-b682-xxxxxx","output":{"task_id":"17ed7e50-00cf-4509-aea1-xxxxxx","task_status":"PENDING"}},
+    "expected": {"taskId":"17ed7e50-00cf-4509-aea1-xxxxxx","status":"queued","assetUrls":[]}
+  },
+  {
+    "name": "wan-running",
+    "operation": "wan-text-to-video",
+    "phase": "pending",
+    "source": "https://docs.ttapi.io/openapi/en/wan-task-result.json",
+    "provenance": "Constructed from official response schema and documented task status enum, not a live API capture.",
+    "payload": {"request_id":"78c9b768-0285-996c-b682-xxxxxx","output":{"task_id":"17ed7e50-00cf-4509-aea1-xxxxxx","task_status":"RUNNING"}},
+    "expected": {"taskId":"17ed7e50-00cf-4509-aea1-xxxxxx","status":"running","assetUrls":[]}
+  },
+  {
+    "name": "wan-completed-video",
+    "operation": "wan-text-to-video",
+    "phase": "success",
+    "source": "https://docs.ttapi.io/openapi/en/wan-task-result.json",
+    "provenance": "Constructed from official response property examples, not a live API capture.",
+    "payload": {"request_id":"78c9b768-0285-996c-b682-xxxxxx","output":{"task_id":"17ed7e50-00cf-4509-aea1-xxxxxx","task_status":"SUCCEEDED","submit_time":"2026-08-06 10:01:35.452","scheduled_time":"2026-08-06 10:01:35.507","end_time":"2026-08-06 10:13:33.838","orig_prompt":"A golden retriever running on a sunny beach, waves crashing in the background.","video_url":"https://dashscope-result-bj.oss-cn-beijing.aliyuncs.com/xxxx.mp4"},"usage":{"video_count":1,"duration":5,"input_video_duration":0,"output_video_duration":5,"fps":30,"SR":720,"ratio":"16:9"}},
+    "expected": {"taskId":"17ed7e50-00cf-4509-aea1-xxxxxx","status":"succeeded","assetUrls":["https://dashscope-result-bj.oss-cn-beijing.aliyuncs.com/xxxx.mp4"]}
+  },
+  {
+    "name": "wan-failed",
+    "operation": "wan-text-to-video",
+    "phase": "failure",
+    "source": "https://docs.ttapi.io/openapi/en/wan-task-result.json",
+    "provenance": "Constructed from official response schema and documented task status enum, not a live API capture.",
+    "payload": {"request_id":"78c9b768-0285-996c-b682-xxxxxx","output":{"task_id":"17ed7e50-00cf-4509-aea1-xxxxxx","task_status":"FAILED"}},
+    "expected": {"taskId":"17ed7e50-00cf-4509-aea1-xxxxxx","status":"failed","assetUrls":[]}
+  },
+  {
+    "name": "wan-canceled",
+    "operation": "wan-text-to-video",
+    "phase": "failure",
+    "source": "https://docs.ttapi.io/openapi/en/wan-task-result.json",
+    "provenance": "Constructed from official response schema and documented task status enum, not a live API capture.",
+    "payload": {"request_id":"78c9b768-0285-996c-b682-xxxxxx","output":{"task_id":"17ed7e50-00cf-4509-aea1-xxxxxx","task_status":"CANCELED"}},
+    "expected": {"taskId":"17ed7e50-00cf-4509-aea1-xxxxxx","status":"canceled","assetUrls":[]}
+  },
+  {
+    "name": "wan-unknown",
+    "operation": "wan-text-to-video",
+    "phase": "pending",
+    "source": "https://docs.ttapi.io/openapi/en/wan-task-result.json",
+    "provenance": "Constructed from official response schema and documented task status enum, not a live API capture.",
+    "payload": {"request_id":"78c9b768-0285-996c-b682-xxxxxx","output":{"task_id":"17ed7e50-00cf-4509-aea1-xxxxxx","task_status":"UNKNOWN"}},
+    "expected": {"taskId":"17ed7e50-00cf-4509-aea1-xxxxxx","status":"unknown","assetUrls":[]}
+  },
+  {
+    "name": "grok-submit-success-is-not-completion",
+    "operation": "grok-text-to-video",
+    "phase": "submit",
+    "source": "https://docs.ttapi.io/openapi/en/grok-text-to-video.json",
+    "provenance": "Constructed from official response property examples, not a live API capture.",
+    "payload": {"status":"SUCCESS","message":"success","data":{"jobId":"jobId"}},
+    "expected": {"taskId":"jobId","status":"submitted","assetUrls":[]}
+  },
+  {
+    "name": "grok-queued",
+    "operation": "grok-text-to-video",
+    "phase": "pending",
+    "source": "https://docs.ttapi.io/openapi/en/grok.json",
+    "provenance": "Constructed from official response schema and documented task status enum, not a live API capture.",
+    "payload": {"status":"PENDING_QUEUE","message":"","jobId":"c822d894-fba8-4cd7-8b34-5cf54284af61"},
+    "expected": {"taskId":"c822d894-fba8-4cd7-8b34-5cf54284af61","status":"queued","assetUrls":[]}
+  },
+  {
+    "name": "grok-running",
+    "operation": "grok-text-to-video",
+    "phase": "pending",
+    "source": "https://docs.ttapi.io/openapi/en/grok.json",
+    "provenance": "Constructed from official response schema and documented task status enum, not a live API capture.",
+    "payload": {"status":"ON_QUEUE","message":"","jobId":"c822d894-fba8-4cd7-8b34-5cf54284af61"},
+    "expected": {"taskId":"c822d894-fba8-4cd7-8b34-5cf54284af61","status":"running","assetUrls":[]}
+  },
+  {
+    "name": "grok-success-excludes-echoed-reference-image",
+    "operation": "grok-text-to-video",
+    "phase": "success",
+    "source": "https://docs.ttapi.io/openapi/en/grok.json",
+    "provenance": "Exact official GET /grok/fetch response schema example, not a live API capture.",
+    "payload": {"status":"SUCCESS","message":"success","jobId":"c822d894-fba8-4cd7-8b34-5cf54284af61","data":{"videoId":"video_b96164dd8bfa43518c858bcf","prompt":"Static camera shot of ants crawling on a stone lantern with flowers and grass gently swaying in the breeze in the background, accompanied by the sound of cicadas","aspectRatio":"9:16","videoLength":"30","resolutionName":"720p","referImage":"https://api.nananobanana.cn/api/cos-proxy/default-tenant-001/images/a515af9c-1619-42e8-abc7-97a6792ec524.png","videoUrl":"https://cdn.ttapi.io/other/2026-03-10/56a8bece963a4e8e9a585f41c5d24162.mp4","quota":"9","finishTime":"2026-03-10 09:52:59","hookUrl":null}},
+    "expected": {"taskId":"c822d894-fba8-4cd7-8b34-5cf54284af61","status":"succeeded","assetUrls":["https://cdn.ttapi.io/other/2026-03-10/56a8bece963a4e8e9a585f41c5d24162.mp4"]}
+  },
+  {
+    "name": "grok-generation-failed",
+    "operation": "grok-text-to-video",
+    "phase": "failure",
+    "source": "https://docs.ttapi.io/openapi/en/grok.json",
+    "provenance": "Constructed from official response schema and documented task status enum, not a live API capture.",
+    "payload": {"status":"FAILED","message":"","jobId":"c822d894-fba8-4cd7-8b34-5cf54284af61"},
+    "expected": {"taskId":"c822d894-fba8-4cd7-8b34-5cf54284af61","status":"failed","assetUrls":[]}
+  },
+  {
+    "name": "grok-validation-error",
+    "operation": "grok-text-to-video",
+    "phase": "submit",
+    "source": "https://docs.ttapi.io/openapi/en/grok-text-to-video.json",
+    "provenance": "Constructed from official 400 response property examples, not a live API capture.",
+    "payload": {"status":"FAILED","message":"\"prompt\" cannot be empty.","data":{}},
+    "expected": {"taskId":null,"status":"failed","assetUrls":[]}
+  }
+]

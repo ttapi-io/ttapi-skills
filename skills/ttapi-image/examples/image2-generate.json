@@ -1,0 +1,9 @@
+{
+  "model": "gpt-image-2",
+  "prompt": "Editorial product photo of a ceramic tea cup on a pale stone table, soft morning light.",
+  "size": "1024x1024",
+  "quality": "medium",
+  "output_format": "png",
+  "n": 1,
+  "stream": false
+}

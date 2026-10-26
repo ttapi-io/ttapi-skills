@@ -1,0 +1,5 @@
+{
+  "model": "gpt-image-2",
+  "prompt": "Generate a clean product photograph of a ceramic tea cup on a pale stone table.",
+  "aspect_ratio": "1:1"
+}

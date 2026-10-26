@@ -1,0 +1,14 @@
+{
+  "name": "ttapi-skills",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Official TTAPI image, video, and audio skills for AI agents",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "sync": "node scripts/sync-runtime.mjs",
+    "check": "node scripts/validate.mjs",
+    "test": "node --test tests/*.test.mjs"
+  },
+  "license": "MIT"
+}
