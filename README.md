@@ -134,4 +134,8 @@ Run `npm run sync`, `npm run check` and `npm test`; see [DEVELOPMENT.md](docs/DE
 
 **This expansion used offline/mock verification. One standard GPT Image 2 generation was performed earlier; the other product workflows have not received paid live generation tests.** Installation and local checks do not establish every model/client's live availability or output quality. Fixtures are official examples or explicitly labeled schema-derived cases.
 
+## Development credits
+
+Developed and maintained by TTAPI, with implementation, documentation and offline verification assisted by [OpenAI Codex](https://github.com/codex).
+
 [MIT](LICENSE) covers the Skill files and clients. API access and generated-media use follow TTAPI and each selected model's applicable terms.

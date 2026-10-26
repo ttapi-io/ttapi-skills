@@ -134,4 +134,8 @@ node skills/video/ttapi-wan-video/scripts/ttapi.mjs get wan-text-to-video --task
 
 **本轮产品扩展使用离线／mock 验证。此前仅进行过一次标准 GPT Image 2 真实生成；其它产品流程没有进行付费生成实测。** 安装成功与本地检查不能证明所有模型／客户端的实时可用性或生成质量。样例来自官方文档或明确标注的 schema 构造数据。
 
+## 开发协作
+
+本项目由 TTAPI 开发和维护，[OpenAI Codex](https://github.com/codex) 协助完成实现、文档与离线验证。
+
 [MIT](LICENSE) 适用于 Skill 文件与客户端代码；API 服务及生成内容使用遵循 TTAPI 和所选模型的适用条款。
