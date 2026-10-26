@@ -1,0 +1,11 @@
+{
+  "model": "doubao-seedream-5-0-pro-260628",
+  "prompt": "Fuse characters from two images into the same scene",
+  "image": [
+    "https://example.com/ref1.jpg",
+    "https://example.com/ref2.jpg"
+  ],
+  "size": "2K",
+  "watermark": false,
+  "response_format": "url"
+}

@@ -3,12 +3,14 @@ import { readFile, access } from 'node:fs/promises';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { validateInput, planRequest } from './ttapi-runtime.mjs';
+import {listSkills} from './list-skills.mjs';
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
 const canonical = await readFile(join(root, 'scripts/ttapi-runtime.mjs'), 'utf8');
 let operations = 0;
-for (const name of ['ttapi-image', 'ttapi-video', 'ttapi-audio']) {
-  const directory = join(root, 'skills', name);
+const skills=await listSkills();
+assert.equal(new Set(skills.map(skill=>skill.name)).size,skills.length,'Skill names must be unique');
+for (const {name,directory} of skills) {
   const source = await readFile(join(directory, 'SKILL.md'), 'utf8');
   const frontmatter = source.match(/^---\r?\n([\s\S]*?)\r?\n---/);
   assert(frontmatter, `${name}: missing YAML frontmatter`);
@@ -30,6 +32,8 @@ for (const name of ['ttapi-image', 'ttapi-video', 'ttapi-audio']) {
     assert(/^[a-z0-9-]+$/.test(id), `Invalid operation ID ${id}`);
     assert(operation.docs?.every(url => url.startsWith('https://docs.ttapi.io/')), `${id}: missing official sources`);
     assert(!JSON.stringify(operation.schema).includes('"$ref"'), `${id}: schema must be self-contained`);
+    if(operation.taskIdPaths)assert(operation.taskIdPaths.every(path=>typeof path==='string'&&path.length),`${id}: invalid task ID paths`);
+    if(operation.statusMap)assert(Object.values(operation.statusMap).every(status=>['submitted','queued','running','succeeded','failed','canceled','unknown'].includes(status)),`${id}: invalid normalized status`);
     validateInput(operation, operation.example);
     planRequest(operation, operation.example);
     if (operation.poll) planRequest(operation, undefined, 'sample-task-id');
@@ -39,4 +43,4 @@ for (const name of ['ttapi-image', 'ttapi-video', 'ttapi-audio']) {
   }
   process.stdout.write(`Validated ${name}\n`);
 }
-process.stdout.write(`Validated ${operations} documented operations and all independent bundles.\n`);
+process.stdout.write(`Validated ${skills.length} independent Skills with ${operations} bundled operation entries.\n`);

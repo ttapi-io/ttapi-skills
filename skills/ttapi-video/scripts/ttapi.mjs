@@ -5,6 +5,7 @@ import { resolve, join, extname, dirname, basename } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { Readable, Transform } from 'node:stream';
 import { pipeline } from 'node:stream/promises';
+import { request as httpsRequest } from 'node:https';
 
 const API_HOSTS = new Set(['https://api.ttapi.io', 'https://api.ttapi.org']);
 const WAITING = new Set(['submitted', 'queued', 'running']);
@@ -111,6 +112,7 @@ const ASSET_KEYS = new Set(['url', 'image_url', 'imageUrl', 'video_url', 'videoU
 function collectAssets(value, assets, hint = '') {
   if (typeof value === 'string') {
     if (/^https:\/\//i.test(value)) assets.push({ url: value });
+    else if (/^data:(image|audio|video)\/[a-z0-9.+-]+;base64,/i.test(value)) { const [,mimeType,base64]=/^data:([^;]+);base64,([\s\S]+)$/i.exec(value)||[]; if(base64)assets.push({base64,mimeType}); }
     else if (hint === 'b64_json' && value) assets.push({ base64: value, mimeType: 'image/png' });
   } else if (Array.isArray(value)) value.forEach(item => collectAssets(item, assets, hint));
   else if (value && typeof value === 'object') {
@@ -119,11 +121,11 @@ function collectAssets(value, assets, hint = '') {
 }
 
 export function normalize(raw, operation, operationName, phase = 'submit', knownTaskId) {
-  const taskId = ['data.jobId', 'jobId', 'output.task_id', 'data.task_id', 'task_id', 'data.request_id', 'request_id'].map(path => at(raw, path)).find(value => typeof value === 'string' && value) || knownTaskId;
-  const rawStatus = ['output.task_status', 'data.task_status', 'data.taskStatus', 'task_status', 'data.status', 'status'].map(path => at(raw, path)).find(value => typeof value === 'string');
+  const taskId = [...(operation.taskIdPaths || []), 'data.jobId', 'jobId', 'output.task_id', 'data.task_id', 'task_id', 'data.request_id', 'request_id'].map(path => at(raw, path)).find(value => typeof value === 'string' && value) || knownTaskId;
+  const rawStatus = [...(operation.statusPaths || []), 'output.task_status', 'data.task_status', 'data.taskStatus', 'task_status', 'data.status', 'status'].map(path => at(raw, path)).find(value => typeof value === 'string');
   const label = rawStatus?.trim().toUpperCase();
   const statuses = { SUCCESS: 'succeeded', SUCCEEDED: 'succeeded', COMPLETED: 'succeeded', COMPLETE: 'succeeded', DONE: 'succeeded', FAILED: 'failed', FAILURE: 'failed', ERROR: 'failed', CANCELED: 'canceled', CANCELLED: 'canceled', PENDING: 'queued', PENDING_QUEUE: 'queued', QUEUED: 'queued', ON_QUEUE: 'running', RUNNING: 'running', PROCESSING: 'running', IN_PROGRESS: 'running', SUBMITTED: 'submitted', CREATED: 'submitted', UNKNOWN: 'unknown' };
-  let status = statuses[label] || 'unknown';
+  let status = operation.statusMap?.[label] || statuses[label] || 'unknown';
   const assets = [];
   for (const path of operation.assetPaths || []) for (const value of select(raw, path.split('.'))) collectAssets(value, assets, path.split('.').at(-1));
   const unique = [...new Map(assets.map(asset => [asset.url || asset.base64, asset])).values()];
@@ -150,7 +152,7 @@ export function planRequest(operation, input, taskId) {
     const url = makeURL(poll.baseUrl || base, poll.location === 'path' ? poll.path.replace(/\{[^}]+\}/g, encodeURIComponent(taskId)) : poll.path);
     const body = poll.location === 'body' ? { [poll.idParam]: taskId } : undefined;
     if (poll.location === 'query') url.searchParams.set(poll.idParam, taskId);
-    return { url: url.href, method: poll.method || 'GET', bodyType: 'json', body };
+    return { url: url.href, method: poll.method || 'GET', bodyType: poll.bodyType || 'json', body };
   }
   validateInput(operation, input);
   return { url: makeURL(base, operation.path).href, method: operation.method || 'POST', bodyType: operation.bodyType || 'json', body: input };
@@ -171,7 +173,36 @@ async function multipart(input) {
   return form;
 }
 
-export async function request(plan, { apiKey = process.env.TTAPI_API_KEY, fetchImpl = fetch, requestTimeout = 60000 } = {}) {
+// FLUX's documented result endpoint uses GET with multipart body. Fetch forbids
+// GET bodies, so this narrowly scoped transport uses Node HTTPS for that shape.
+export async function apiFetch(url, options = {}, httpsImpl = httpsRequest) {
+  if (options.method !== 'GET' || options.body === undefined) return fetch(url, options);
+  if (!API_HOSTS.has(new URL(url).origin)) throw new TTAPIError('Unsupported API host', {code:'INVALID_HOST'});
+  const headers = new Headers(options.headers);
+  let bytes;
+  if (options.body instanceof FormData) {
+    const encoded = new Response(options.body);
+    headers.set('Content-Type', encoded.headers.get('Content-Type'));
+    bytes = Buffer.from(await encoded.arrayBuffer());
+  } else bytes = Buffer.from(options.body);
+  headers.set('Content-Length', String(bytes.length));
+  return new Promise((resolveResponse, reject) => {
+    const outgoing = httpsImpl(url, {method:'GET',headers:Object.fromEntries(headers),signal:options.signal}, incoming => {
+      const chunks=[];
+      incoming.on('data',chunk=>chunks.push(chunk));
+      incoming.on('error',reject);
+      incoming.on('end',()=>{
+        const responseHeaders=new Headers();
+        for(let i=0;i<incoming.rawHeaders.length;i+=2)responseHeaders.append(incoming.rawHeaders[i],incoming.rawHeaders[i+1]);
+        resolveResponse(new Response([204,205,304].includes(incoming.statusCode)?null:Buffer.concat(chunks),{status:incoming.statusCode,headers:responseHeaders}));
+      });
+    });
+    outgoing.on('error',reject);
+    outgoing.end(bytes);
+  });
+}
+
+export async function request(plan, { apiKey = process.env.TTAPI_API_KEY, fetchImpl = apiFetch, requestTimeout = 60000 } = {}) {
   if (!apiKey?.trim()) throw new TTAPIError('Set TTAPI_API_KEY in the process environment before making API calls', { code: 'MISSING_API_KEY' });
   const headers = { 'TT-API-KEY': apiKey, Accept: 'application/json' };
   let body;

@@ -1,0 +1,9 @@
+{
+  "mode": "i2v",
+  "prompt": "The camera slowly moves closer as soft light crosses the scene.",
+  "keyframes": [
+    "https://cdn.ttapi.io/example/reference-image.png"
+  ],
+  "duration": 5,
+  "resolution": "hd"
+}

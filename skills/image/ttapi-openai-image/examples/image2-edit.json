@@ -1,0 +1,11 @@
+{
+  "model": "gpt-image-2",
+  "prompt": "Replace the background with a softly lit photography studio, preserving the cup.",
+  "images": [
+    {
+      "image_url": "https://cdn.ttapi.io/demo/2025-03-30/5d17dd5207daeeac86bcecd2d6405a0.jpg"
+    }
+  ],
+  "size": "1024x1024",
+  "stream": false
+}

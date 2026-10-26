@@ -1,0 +1,7 @@
+{
+  "model": "nai-diffusion-5-curated",
+  "prompt": "Redraw the reference as a detailed watercolor illustration.",
+  "image": "https://cdn.ttapi.io/demo/2025-03-30/5d17dd5207daeeac86bcecd2d6405a0.jpg",
+  "n": 1,
+  "strength": 0.7
+}

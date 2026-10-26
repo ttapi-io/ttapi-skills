@@ -1,0 +1,16 @@
+{
+  "model": "happyhorse-1.1-i2v",
+  "input": {
+    "prompt": "The camera slowly moves closer as soft morning light crosses the scene.",
+    "media": [
+      {
+        "type": "first_frame",
+        "url": "https://cdn.ttapi.io/example/reference-image.png"
+      }
+    ]
+  },
+  "parameters": {
+    "resolution": "720P",
+    "duration": 5
+  }
+}

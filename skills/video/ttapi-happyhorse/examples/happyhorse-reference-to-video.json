@@ -1,0 +1,17 @@
+{
+  "model": "happyhorse-1.1-r2v",
+  "input": {
+    "prompt": "Character1 walks through a sunlit garden, slow tracking camera.",
+    "media": [
+      {
+        "type": "reference_image",
+        "url": "https://cdn.ttapi.io/example/reference-image.png"
+      }
+    ]
+  },
+  "parameters": {
+    "resolution": "720P",
+    "ratio": "16:9",
+    "duration": 5
+  }
+}

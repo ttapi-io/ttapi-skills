@@ -1,0 +1,8 @@
+{
+  "mode": "t2v",
+  "prompt": "A paper boat floats across a quiet pond at sunrise, gentle ripples.",
+  "aspect_ratio": "16:9",
+  "duration": 5,
+  "resolution": "hd",
+  "generate_audio": true
+}

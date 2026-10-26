@@ -1,0 +1,12 @@
+{
+  "model": "wan3.0-video",
+  "input": {
+    "prompt": "A paper boat floats across a quiet pond at sunrise, slow cinematic camera movement."
+  },
+  "parameters": {
+    "resolution": "720P",
+    "ratio": "16:9",
+    "duration": 5,
+    "audio": true
+  }
+}

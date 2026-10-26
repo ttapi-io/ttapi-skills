@@ -1,0 +1,7 @@
+{
+  "model": "grok-imagine-image",
+  "prompt": "Restyle this reference as an editorial watercolor image.",
+  "refer_images": [
+    "https://cdn.ttapi.io/demo/2025-03-30/5d17dd5207daeeac86bcecd2d6405a0.jpg"
+  ]
+}

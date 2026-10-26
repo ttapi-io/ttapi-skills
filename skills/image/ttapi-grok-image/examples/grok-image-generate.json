@@ -1,0 +1,7 @@
+{
+  "model": "grok-imagine-image",
+  "prompt": "A quiet mountain lake at sunrise, detailed illustration, soft natural light.",
+  "n": 1,
+  "resolution": "1k",
+  "aspect_ratio": "1:1"
+}

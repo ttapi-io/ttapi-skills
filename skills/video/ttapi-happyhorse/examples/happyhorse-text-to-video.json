@@ -1,0 +1,11 @@
+{
+  "model": "happyhorse-1.1-t2v",
+  "input": {
+    "prompt": "A paper boat floats across a quiet pond at sunrise, slow camera movement."
+  },
+  "parameters": {
+    "resolution": "720P",
+    "ratio": "16:9",
+    "duration": 5
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "prompt": "Fill the transparent region with a leafy green houseplant, matching the existing light.",
+  "image": "https://example.com/your-image.png",
+  "mode": "fast",
+  "type": "edit"
+}

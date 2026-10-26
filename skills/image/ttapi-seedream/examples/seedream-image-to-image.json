@@ -1,0 +1,9 @@
+{
+  "model": "doubao-seedream-5-0-pro-260628",
+  "prompt": "Convert image to watercolor style",
+  "image": "https://example.com/reference.jpg",
+  "size": "2K",
+  "output_format": "png",
+  "watermark": false,
+  "response_format": "url"
+}

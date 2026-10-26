@@ -1,129 +1,138 @@
 # TTAPI Skills
 
-Official agent skills for generating images, videos, and music with [TTAPI](https://ttapi.io/?utm_source=github&utm_medium=skills&utm_campaign=ttapi-skills).
+Official [TTAPI](https://ttapi.io/?utm_source=github&utm_medium=skills&utm_campaign=ttapi-skills) Agent Skills for creating images, videos and music, saving results, and using them in your project. Each Skill includes a standalone Node.js client, validated schemas, examples and product references. It calls TTAPI directly; no MCP service is required.
 
-Install a skill, configure your TTAPI key, and describe what you want to create. Each skill includes its own Node.js client, request validation, examples, and product references. It calls TTAPI directly and works independently of MCP.
+[中文说明](README.zh-CN.md) · [API docs index for agents](https://docs.ttapi.io/llms.txt) · [Get an API key](https://dashboard.ttapi.io/)
 
-[中文说明](README.zh-CN.md) · [API documentation](https://docs.ttapi.io/) · [Get an API key](https://dashboard.ttapi.io/)
+## Choose a product Skill
 
-## Available skills
+**17 product Skills** are organized by image/video/audio, with **3 original combined Skills** retained for compatibility: **20 installable Skills** total. Prefer the product you need; installing an overlapping product and combined Skill is usually unnecessary.
 
-| Skill | Model families | Workflows |
-| --- | --- | --- |
-| [ttapi-image](skills/ttapi-image/SKILL.md) | GPT Image 2 / 2.5, Nano Banana | Generate images, edit reference images, retrieve asynchronous GPT image jobs |
-| [ttapi-video](skills/ttapi-video/SKILL.md) | Wan 3.0, Grok | Text-to-video, first-frame image-to-video, Wan first/last frames, task retrieval |
-| [ttapi-audio](skills/ttapi-audio/SKILL.md) | Suno, FlowMusic | Songs, instrumentals, lyrics, continuation, covers, stems, selected audio import/export |
+Product catalogs contain **79 operation entries**. Combined Skills retain 22 overlapping entries, giving 101 bundled entries; this is not 101 distinct APIs or models. Catalogs are versioned documentation snapshots, not live account availability checks or coverage of every endpoint.
 
-The bundled catalog implements 22 documented operations. It is a versioned contract, not a live list of models enabled for your account. Standard GPT image models and TTAPI's explicitly labeled unofficial asynchronous GPT route use different model IDs; see the image skill before selecting one.
+### Images — 8 products
 
-## Install
+| Skill | Implemented workflows |
+| --- | --- |
+| [ttapi-midjourney-image](skills/image/ttapi-midjourney-image/SKILL.md) | Imagine, returned image actions, blend, describe, seed, region inpainting and task retrieval |
+| [ttapi-midjourney-edit](skills/image/ttapi-midjourney-edit/SKILL.md) | Dedicated image editing and retexturing, separate from classic Midjourney inpainting |
+| [ttapi-nano-banana](skills/image/ttapi-nano-banana/SKILL.md) | Synchronous generation/reference editing with five documented Nano Banana models |
+| [ttapi-openai-image](skills/image/ttapi-openai-image/SKILL.md) | Standard GPT Image 2/2.5 generation, GPT Image 2 editing, and the separately labeled TTAPI unofficial async route |
+| [ttapi-flux-image](skills/image/ttapi-flux-image/SKILL.md) | Flux generation, multipart editing, Kontext and documented BFL image routes including Flux 2/3 |
+| [ttapi-grok-image](skills/image/ttapi-grok-image/SKILL.md) | Grok image generation and reference-image editing |
+| [ttapi-novel-ai](skills/image/ttapi-novel-ai/SKILL.md) | NovelAI text-to-image and image-to-image |
+| [ttapi-seedream](skills/image/ttapi-seedream/SKILL.md) | Text/reference/multi-image generation, layers, instruction editing and synchronous text-to-image |
 
-Requires Node.js 20+ and an agent with Agent Skills support and permission to run local scripts.
+### Video — 6 products
 
-```sh
-npx skills add ttapi-luke/ttapi-skills
-```
+| Skill | Implemented workflows |
+| --- | --- |
+| [ttapi-gemini-video](skills/video/ttapi-gemini-video/SKILL.md) | Veo 3.1/Gemini Omni Flash generation; eligible completed-job extension |
+| [ttapi-grok-video](skills/video/ttapi-grok-video/SKILL.md) | Text-to-video and supported first-frame generation through the Grok compatibility API |
+| [ttapi-midjourney-video](skills/video/ttapi-midjourney-video/SKILL.md) | Starting/ending-image animation, selected-video extension, task retrieval and downloads |
+| [ttapi-flux3-video](skills/video/ttapi-flux3-video/SKILL.md) | Text/image-to-video, video continuation and draft enhancement |
+| [ttapi-wan-video](skills/video/ttapi-wan-video/SKILL.md) | Wan 3.0 text-to-video, first frame, first/last frames and task retrieval |
+| [ttapi-happyhorse](skills/video/ttapi-happyhorse/SKILL.md) | Text-to-video, first-frame/reference-image generation and video editing |
 
-Choose the skills and agent you want in the installer. To install one skill:
+### Audio — 3 products
 
-```sh
-npx skills add ttapi-luke/ttapi-skills --skill ttapi-image
-npx skills add ttapi-luke/ttapi-skills --skill ttapi-video
-npx skills add ttapi-luke/ttapi-skills --skill ttapi-audio
-```
+| Skill | Implemented workflows |
+| --- | --- |
+| [ttapi-suno](skills/audio/ttapi-suno/SKILL.md) | Songs/instrumentals, lyrics, continuation, covers, selected/all stems |
+| [ttapi-flowmusic](skills/audio/ttapi-flowmusic/SKILL.md) | Lyria music, lyrics, covers, continuation, stems, URL import and format export |
+| [ttapi-producer](skills/audio/ttapi-producer/SKILL.md) | Producer generation/lyrics, continuation, covers/variations, section/vocal/accompaniment replacement, stems, import/export and track video |
 
-Skills use the [open Agent Skills format](https://agentskills.io/specification). Client-specific discovery and execution settings vary; the bundled scripts also run directly from a clone. No global npm package, Python environment, or MCP service is required for execution.
+### Original combined Skills
 
-## Configure your key
+[ttapi-image](skills/ttapi-image/SKILL.md) retains GPT Image/Nano Banana; [ttapi-video](skills/ttapi-video/SKILL.md) retains Wan/Grok; [ttapi-audio](skills/ttapi-audio/SKILL.md) retains Suno/FlowMusic. Existing installations can keep these names. They do not automatically include every new product.
 
-Create or sign in to your account at the [TTAPI dashboard](https://dashboard.ttapi.io/) and set `TTAPI_API_KEY` in the environment of the terminal or agent process that will run the scripts. The client sends it as the `TT-API-KEY` request header.
+## 1. Install in your coding agent
 
-**Bash** — enter the key at the hidden prompt:
+The current `npx skills` installer requires **Node.js 22.20+**; bundled clients run on **Node.js 20+**. Your agent needs Agent Skills support and permission to run local scripts. Codex, Claude Code, Cursor and Gemini CLI have different discovery/execution settings.
 
-```bash
-read -rsp 'TTAPI API key: ' TTAPI_API_KEY
-export TTAPI_API_KEY
-printf '\n'
-```
+Paste this into your agent's chat while your project is open:
 
-**PowerShell** — enter the key at the hidden prompt:
+> Install ttapi-openai-image, ttapi-wan-video and ttapi-suno from https://github.com/ttapi-io/ttapi-skills into this project for the agent I am using. Verify the installed files and report their paths. Read https://docs.ttapi.io/llms.txt for relevant official API references. Do not generate media during installation.
 
-```powershell
+Choose other product names from the tables as needed. Or run this in your **local terminal**, selecting the Skills and agent in the installer:
+
+~~~sh
+npx skills add ttapi-io/ttapi-skills
+npx skills add ttapi-io/ttapi-skills --skill ttapi-openai-image
+npx skills add ttapi-io/ttapi-skills --skill ttapi-wan-video
+npx skills add ttapi-io/ttapi-skills --skill ttapi-suno
+~~~
+
+Skills use the [open Agent Skills format](https://agentskills.io/specification). Each selected directory runs independently; no global npm package, Python environment or MCP setup is needed to execute its client.
+
+## 2. Set your key locally
+
+Get a key from the [TTAPI dashboard](https://dashboard.ttapi.io/). Set `TTAPI_API_KEY` in the environment running the scripts; the client sends it as `TT-API-KEY`. Enter it only at the hidden local prompt.
+
+**Windows PowerShell:** if you are in Windows CMD, run `powershell` first and remain in that session.
+
+~~~powershell
 $taskKey = Read-Host 'TTAPI API key' -AsSecureString
 $env:TTAPI_API_KEY = [System.Net.NetworkCredential]::new('', $taskKey).Password
 Remove-Variable taskKey
-```
+~~~
 
-These commands configure the current terminal process and its children. An already running desktop agent must inherit the variable through its own environment configuration or be launched from the configured terminal. `.env.example` is a template; the scripts do not automatically read `.env` files. Keep real keys out of chat, request JSON, screenshots, and Git.
+**Bash on macOS/Linux/WSL:** if using zsh, run `bash` before these Bash commands.
 
-The skills are free and MIT licensed. API generation and editing use your TTAPI account quota. Check the current [image](https://docs.ttapi.io/grids/en/start/pricing/image), [video](https://docs.ttapi.io/grids/en/start/pricing/video), and [audio](https://docs.ttapi.io/grids/en/start/pricing/audio) prices for the model and operation you select.
+~~~bash
+read -rsp 'TTAPI API key: ' TTAPI_API_KEY
+export TTAPI_API_KEY
+printf '\n'
+~~~
 
-## Ask your agent
+These settings are temporary and inherited by this terminal's child processes. Start a terminal agent from this configured terminal. An already running editor/desktop agent needs the key in its own script execution environment; another terminal does not update it automatically. `.env.example` is a template: clients do not automatically load `.env`. Keep keys out of chat, request JSON, screenshots and Git.
 
-- “Use ttapi-image to generate one square product photo of a ceramic mug with GPT Image 2. Save it in my project's assets folder.”
-- “Use ttapi-video and Wan 3.0 to create a five-second video of rain falling in a quiet forest. Save the task ID and download the completed video.”
-- “Use ttapi-audio to generate instrumental synthwave background music with Suno. Preserve the task ID and save the audio files.”
+Ask your agent: “Check only whether TTAPI_API_KEY is nonempty in the environment used for TTAPI scripts. Report configured or missing without revealing the value. Make no API requests.” This checks visibility, not key validity, balance or model availability.
 
-Supply your actual reference media for edits and image-to-video. Creative requests authorize only the requested generation; an explanation or dry run does not send a paid request.
+## 3. Create and use project assets
+
+- “Use ttapi-openai-image and GPT Image 2 to create a product photo matching this project's landing-page hero. Save it in the existing asset folder, update the hero reference, and check the page.”
+- “Use ttapi-wan-video and Wan 3.0 to create a five-second forest clip for this project's background. Save the task ID, download the result, and connect it to the existing video component.”
+- “Use ttapi-suno to generate instrumental synthwave music without vocals. Save the task ID and audio, then connect the chosen track to this project's user-controlled player.”
+
+Provide real reference media and completed source IDs for edits/continuation. A creative request authorizes only that requested scope; installation, inspection and dry runs do not authorize paid generation. Generation/editing and some auxiliary operations consume quota: check current [image](https://docs.ttapi.io/grids/en/start/pricing/image), [video](https://docs.ttapi.io/grids/en/start/pricing/video) and [audio](https://docs.ttapi.io/grids/en/start/pricing/audio) pricing. Skill code and installation are free under MIT.
 
 ## Run the client directly
 
-Clone the repository and run commands from its root. No `npm install` is needed:
+Clone and run from the repository root; no `npm install` is needed:
 
-```sh
-git clone https://github.com/ttapi-luke/ttapi-skills.git
+~~~sh
+git clone https://github.com/ttapi-io/ttapi-skills.git
 cd ttapi-skills
+node skills/image/ttapi-openai-image/scripts/ttapi.mjs models
+node skills/image/ttapi-openai-image/scripts/ttapi.mjs schema image2-generate
+node skills/image/ttapi-openai-image/scripts/ttapi.mjs submit image2-generate --input skills/image/ttapi-openai-image/examples/image2-generate.json --dry-run
+~~~
 
-node skills/ttapi-image/scripts/ttapi.mjs models
-node skills/ttapi-image/scripts/ttapi.mjs schema image2-generate
-node skills/ttapi-image/scripts/ttapi.mjs submit image2-generate --input skills/ttapi-image/examples/image2-generate.json --dry-run
-```
+`models`, `schema` and `--dry-run` run locally with no key/API call. Adapt examples first: demonstration URLs, tiny image data and previous-job IDs are not your actual inputs. This sends a paid generation request:
 
-`models`, `schema`, and `--dry-run` run locally without a key or API call. Inspect and adapt the example JSON before submitting; reference URLs and previous track IDs in editing examples must be replaced with your real inputs.
+~~~sh
+node skills/image/ttapi-openai-image/scripts/ttapi.mjs submit image2-generate --input skills/image/ttapi-openai-image/examples/image2-generate.json --output ./outputs/images
+~~~
 
-The following commands send paid generation requests:
-
-```sh
-node skills/ttapi-image/scripts/ttapi.mjs submit image2-generate --input skills/ttapi-image/examples/image2-generate.json --output ./outputs/images
-
-node skills/ttapi-video/scripts/ttapi.mjs submit wan-text-to-video --input skills/ttapi-video/examples/wan-text-to-video.json --wait --timeout 900 --output ./outputs/videos
-
-node skills/ttapi-audio/scripts/ttapi.mjs submit suno-generate --input skills/ttapi-audio/examples/suno-generate.json --wait --timeout 900 --output ./outputs/audio
-```
-
-For Nano Banana, Grok, or FlowMusic, use the corresponding operation and example listed by that skill's `models` command.
+Use each product's `models` and `schema` for its operations. Documented multipart file fields accept `{"$file":"path/to/file.png"}`; URL-only JSON endpoints do not automatically upload local files.
 
 ## Results and recovery
 
-The client prints JSON with the operation, task ID when available, normalized status, generated assets, raw API response, and downloaded file paths. Asynchronous task receipts are saved to `.ttapi/jobs/` in the working directory before polling. Keep these local records private; they include your prompts and result URLs, but do not include the request authentication header.
+The client returns normalized status, task ID when present, assets, raw response and saved paths. Async receipts go under `.ttapi/jobs/` before polling. Keep them private: they contain prompts and result URLs. `submitted`/`queued`/`running` are incomplete; `succeeded` indicates the documented result; inspect `failed`/`canceled`/`unknown` instead of submitting a replacement automatically.
 
-- `submitted`, `queued`, `running`: the generation is not complete yet.
-- `succeeded`: the documented task status or synchronous result indicates completion.
-- `failed`, `canceled`, `unknown`: inspect the returned response instead of starting a replacement automatically.
+~~~sh
+node skills/video/ttapi-wan-video/scripts/ttapi.mjs get wan-text-to-video --task YOUR_SAVED_TASK_ID --wait --timeout 900 --output ./outputs/videos
+~~~
 
-`--timeout` sets the polling wait budget (default 300 seconds); `--request-timeout` sets the time limit for an individual API request (default 60 seconds for asynchronous operations, 600 seconds for synchronous images). Waiting can end while a server-side task is still running. Resume the same task:
+`--timeout` controls polling (default 300 seconds); `--request-timeout` controls one request (default 60 seconds for async operations, 600 seconds for synchronous ones). A wait limit does not cancel the server task. POST submissions are never automatically retried: if no ID was returned after a timeout, inspect receipts/the dashboard first. Transient query errors are retried within the wait budget. Standard GPT image and Nano Banana use TTAPI's recommended `.org` gateway for synchronous images; other documented routes use `.io`. Do not mix standard/unofficial routes or product-specific IDs.
 
-```sh
-node skills/ttapi-video/scripts/ttapi.mjs get wan-text-to-video --task YOUR_SAVED_TASK_ID --wait --timeout 900 --output ./outputs/videos
-node skills/ttapi-audio/scripts/ttapi.mjs get suno-generate --task YOUR_SAVED_TASK_ID --wait --output ./outputs/audio
-```
+Download promptly; retention varies. Downloads do not receive your key or overwrite existing files. Exit codes: `0` successful/accepted task, `1` error, `2` polling wait limit.
 
-Standard GPT image and Nano Banana calls return synchronously and have no task polling contract in this client. Their default gateway is `https://api.ttapi.org`, as recommended by TTAPI for long synchronous image requests. Other operations use `https://api.ttapi.io`. A timed-out paid submission may have reached the API; check existing task records or the dashboard before submitting again. Generation POST requests are never automatically retried. Transient polling failures are retried within the wait budget.
+## Verification and development
 
-Download generated assets promptly; retention varies by service. Downloads never receive your API key and do not overwrite existing output files. A download failure preserves the API result and URL so you can retrieve the same asset again. Exit codes: `0` for a successful request or accepted pending task, `1` for errors, `2` when the polling wait budget is reached.
+Run `npm run sync`, `npm run check` and `npm test`; see [DEVELOPMENT.md](docs/DEVELOPMENT.md). Format checks passed for 20 Skills, 158 offline tests passed, and the cached `skills@1.7.4` installer discovered/installed all 20 into an isolated directory. Standalone copies of all 17 products passed local models/schema/dry-run checks without keys or sibling Skills.
 
-## Development and verification
+**This expansion used offline/mock verification. One standard GPT Image 2 generation was performed earlier; the other product workflows have not received paid live generation tests.** Installation and local checks do not establish every model/client's live availability or output quality. Fixtures are official examples or explicitly labeled schema-derived cases.
 
-```sh
-npm run sync
-npm run check
-npm test
-```
-
-The source runtime lives in `scripts/ttapi-runtime.mjs`; `sync` copies it into each independently installable skill and refreshes example JSON from its catalog. `check` catches stale bundles, broken local skill references, and invalid catalog examples. Tests cover request construction, response normalization, validation, polling, receipt persistence, secret handling, asset downloads, and standalone skill copies.
-
-Fixtures are sourced from official examples or explicitly marked schema-derived cases. Automated tests and dry runs do not generate media and do not establish live model availability or generation quality. This initial version has not been tested with paid live generation. See [development notes](docs/DEVELOPMENT.md) to update a model contract.
-
-## License
-
-[MIT](LICENSE) covers the skill files and client code. API access, generated media rights, and usage are governed by TTAPI and the selected model's applicable terms.
+[MIT](LICENSE) covers the Skill files and clients. API access and generated-media use follow TTAPI and each selected model's applicable terms.

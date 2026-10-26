@@ -1,0 +1,16 @@
+{
+  "model": "happyhorse-1.0-video-edit",
+  "input": {
+    "prompt": "Change the lighting to warm sunset while retaining the original motion.",
+    "media": [
+      {
+        "type": "video",
+        "url": "https://cdn.ttapi.io/example/reference-video.mp4"
+      }
+    ]
+  },
+  "parameters": {
+    "resolution": "720P",
+    "audio_setting": "origin"
+  }
+}

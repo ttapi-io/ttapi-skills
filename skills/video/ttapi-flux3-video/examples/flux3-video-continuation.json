@@ -1,0 +1,7 @@
+{
+  "mode": "v2v",
+  "prompt": "Continue the smooth camera movement across the landscape.",
+  "start_video": "https://cdn.ttapi.io/example/reference-video.mp4",
+  "duration": 5,
+  "resolution": "hd"
+}

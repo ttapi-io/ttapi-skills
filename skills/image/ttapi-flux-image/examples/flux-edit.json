@@ -1,0 +1,7 @@
+{
+  "image": {
+    "$file": "./reference.png"
+  },
+  "mode": "flux-kontext-pro",
+  "prompt": "Restyle the supplied image as a soft watercolor."
+}

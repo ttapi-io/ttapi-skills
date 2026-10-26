@@ -1,0 +1,8 @@
+{
+  "model": "doubao-seedream-5-0-pro-260628",
+  "prompt": "Vibrant close-up editorial portrait, model with sharp gaze, sculptural hat, rich color palette",
+  "size": "2K",
+  "output_format": "png",
+  "watermark": false,
+  "response_format": "url"
+}

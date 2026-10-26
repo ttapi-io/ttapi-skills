@@ -1,0 +1,8 @@
+{
+  "model": "doubao-seedream-5-0-pro-260628",
+  "prompt": "Separate the person from the background <bbox>(0.1, 0.2, 0.8, 0.9)",
+  "image": "https://example.com/photo.jpg",
+  "layer_decomposition": true,
+  "watermark": false,
+  "response_format": "url"
+}

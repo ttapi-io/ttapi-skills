@@ -1,0 +1,6 @@
+{
+  "model": "gemini-3.1-flash-image",
+  "prompt": "Editorial product photo of a ceramic tea cup on a pale stone table, soft morning light.",
+  "aspect_ratio": "1:1",
+  "image_size": "1K"
+}

@@ -1,0 +1,7 @@
+{
+  "model": "doubao-seedream-5-0-pro-260628",
+  "prompt": "Change the person's hat to red <bbox>(0.3, 0.1, 0.7, 0.3)",
+  "image": "https://example.com/photo.jpg",
+  "watermark": false,
+  "response_format": "url"
+}

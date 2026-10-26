@@ -1,0 +1,6 @@
+{
+  "prompt": "Restyle the scene as a refined watercolor illustration while retaining its layout.",
+  "image": "https://example.com/your-image.png",
+  "mode": "fast",
+  "type": "retexture"
+}
